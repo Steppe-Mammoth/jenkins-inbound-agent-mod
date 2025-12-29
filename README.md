@@ -48,3 +48,7 @@ networks:
   jenkins:
     driver: bridge
 ```
+
+## docker login
+Увага! Необхідно виконати ручний логін до docker repo
+`docker login <repo>`
