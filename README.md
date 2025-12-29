@@ -42,7 +42,6 @@ services:
         limits:
           memory: 1.5g
 
-
 networks:
   jenkins:
     driver: bridge
