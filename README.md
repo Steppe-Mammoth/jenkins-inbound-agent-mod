@@ -36,7 +36,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - jenkins
-    user: "1000:1000"
+    # Якщо хостовий docker працює через групу docker - додаємо хостову групу docker до jenkins юзера.
+    group_add:
+      - "$DOCKER_GID"  # DOCKER_GID=$(getent group docker | cut -d: -f3)
     deploy:
       resources:
         limits:

@@ -1,13 +1,13 @@
-FROM jenkins/inbound-agent:jdk17
+# Stage 0: Get the docker binary (docker:29.1.3-cli 2025-12-18)
+FROM docker:29.1.3-cli AS docker_cli
 
+# Stage 1: Jenkins inbound agent
+FROM jenkins/inbound-agent:jdk17
 USER root
 
-# Docker CLI
-RUN apt-get update && \
-    apt-get install -y ca-certificates curl && \
-    curl -fsSL https://get.docker.com | sh && \
-    docker --version && \
-    rm -rf /var/lib/apt/lists/*
+# Copy the docker CLI binary from the first stage into our agent image
+COPY --from=docker_cli /usr/local/bin/docker /usr/local/bin/docker
+
 
 # Повертаємось до jenkins
 USER jenkins
